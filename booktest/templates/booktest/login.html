@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="/static/js/jquery-1.12.4.min.js" ></script>
+    <script>
+        $(function () {
+            $('#change').css('cursor','pointer').click(function() {
+            {#$('#yzm').attr('src',$('#yzm').attr('src')+1)#}
+                $('#yzm').attr('src',$('#yzm').attr('src')+2)
+            });
+
+            $('#img_vc').css('cursor','pointer').click(function () {
+                $('#img_vc').attr('src',$('#img_vc').attr('src')+1)
+            })
+
+            var i = 1
+
+            $('#img_vc1').css('cursor','pointer').click(function () {
+                {#$('#img_vc').attr('src',$('#img_vc').attr('src')+1)#}
+                i += 1
+
+                $.ajax({
+
+                    'url': '/verify_code_ajax?1'+i
+
+                }).success(function (data) {
+                    alert(data.res)
+                    $('#img_vc1').attr('src', data.res)
+                    alert($('#img_vc1'))
+                })
+            })
+
+
+        })
+
+
+    </script>
+</head>
+<body>
+    <form method="post" action="/login_chke" >
+            {% csrf_token %}
+        <ul>
+
+            <li>用户名： <input type="text" name="username" value="{{ username }}"></li><br />
+            <li>密码： <input type="password" name="password" value="{{ password }}" ></li><br />
+
+            <li><input type="text" name="vcode" ><img id="img_vc1" src="/verify_code">1</li><br />
+
+            <input type="text" name="vcode" ><img id="img_vc" src="/verify_code?1"><br />
+
+            <li><input type="checkbox" name="remeber" > 是否选择记住密码</li><br />
+            <li><input type="submit" value="登录"></li>
+
+            <li><img id="yzm" src="/verify_code?1"/></li>
+            <li><span id="change">看不清，换一个</span></li>
+        </ul>
+    </form>
+</body>
+</html>

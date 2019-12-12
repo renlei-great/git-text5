@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        {% for area in page %}
+        <li>{{ area.atitle }}</li>
+        {% endfor %}
+    </ul>
+    {% if page.has_previous %}
+        <a href="/page_test{{ page.previous_page_number }}"><前一页</a>
+    {% endif %}
+    {% for i in page.paginator.page_range %}
+        {% if page.number == i %}
+            {{ i }}
+        {% else %}
+            <a href="/page_test{{ i }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if page.has_next %}
+        <a href="/page_test{{ page.next_page_number }}">后一页></a>
+    {% endif %}
+
+</body>
+</html>

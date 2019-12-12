@@ -1,0 +1,16 @@
+{% extends 'booktest/base.html' %}
+{% block b1 %}
+    <h1>单行转义:{{ context|safe }}</h1>
+
+    <h1>多行转义：</h1>
+    {% autoescape off %}
+        {{ context }}<br>
+        {{ context }}<br>
+        {{ context }}<br>
+    {% endautoescape %}
+{% endblock %}
+
+{% block b2 %}
+    {{ block.super }}
+    <h2>除了修改，我还能保留</h2>
+{% endblock %}

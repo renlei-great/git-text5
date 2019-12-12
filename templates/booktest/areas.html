@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>areas</title>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            pro = $('#pro')
+            city = $('#city')
+            county = $('#county')
+
+            // 查找市
+            $.get('/prov', function (data) {
+                areas = data.data
+
+                $.each(areas, function (index, item) {
+                    id = item[0]
+                    atitle = item[1]
+
+                    str = '<option value="' + id +'">' + atitle + '</option>'
+                    console.log(str)
+                    pro.append(str)
+
+
+                })
+            })
+
+            // 查找省下面的市
+            pro.change(function () {
+                pro_id = $(this).val()
+                $.get('/city'+ pro_id, function (data) {
+                    // 清空上次的添加
+                    city.empty().append('<option >---请选择市---</option>')
+                    county.empty().append('<option>---请选择县---</option>')
+                    // 进行遍历后端送回的列表,取出id和城市名
+                    area1 = data.data
+                    $.each(area1, function (index, item) {
+                        id = item[0]
+                        atitle = item[1]
+
+                        str = '<option value = "'+ id +'">'+ atitle +'</option>'
+
+                        city.append(str)
+                    })
+                })
+            })
+
+            // 查找市下面的县
+            city.change(function () {
+                city_id = city.val()
+                $.get('/city'+city_id , function (data) {
+                    // 清除上一个添加的县
+                    county.empty().append('<option>---请选择县---</option>')
+
+                    area2 = data.data
+                    $.each(area2, function (index, item) {
+                        atitle = item[1]
+
+                        // 拼接成一个option标签的字符串
+                        str = '<option>'+ atitle +'</option>'
+
+                        // select标签添加option标签签
+                        county.append(str)
+
+                    })
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<select id="pro" id="">
+    <option>---请选择省---</option>
+</select>
+<select id="city" id="">
+    <option >---请选择市---</option>
+</select>
+<select id="county" id="">
+    <option>---请选择县---</option>
+</select>
+</body>
+</html>
