@@ -338,3 +338,7 @@ def city(request, pro_id):
 
 def jiade(request):
     pass
+
+
+def liangjie():
+    pass
