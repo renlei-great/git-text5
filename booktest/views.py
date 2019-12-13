@@ -335,6 +335,3 @@ def city(request, pro_id):
 #     # 将列表返回给前端
 #     return JsonResponse({'data': area_list})
 
-
-def jiade(request):
-    pass
