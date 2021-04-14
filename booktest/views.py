@@ -335,10 +335,11 @@ def city(request, pro_id):
 #     # 将列表返回给前端
 #     return JsonResponse({'data': area_list})
 
+def ii():
+    pass
 
 def jiade(request):
     pass
 
-
-def liangjie():
+def liuliang():
     pass
